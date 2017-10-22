@@ -2,3 +2,4 @@
 *.o
 *.class
 *.swp
+__pycache__/
