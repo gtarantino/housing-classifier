@@ -4,23 +4,30 @@ import pandas as pd
 import numpy as np
 from sklearn import linear_model
 
-def predict_record(record):
-   data_frame = pd.read_csv('../datasets/RealEstate.csv')
+class HousingModel:
+   def __init__(self):
+      self.instantiate_model()
 
-   ind_vars = pd.concat([
-      data_frame['Location'].astype('category').cat.codes.rename('Location'),
-      data_frame['Status'].astype('category').cat.codes.rename('Status'),
-      data_frame[['Bedrooms', 'Bathrooms', 'Size']]],
-      axis=1)
-   target = data_frame['Price']
+   def instantiate_model(self):
+      self.df = pd.read_csv('../datasets/RealEstate.csv')
 
-   lmodel = linear_model.LinearRegression()
-   lmodel.fit(ind_vars, target)
+      ind_vars = pd.concat([
+         self.df['Location'].astype('category').cat.codes.rename('Location'),
+         self.df['Status'].astype('category').cat.codes.rename('Status'),
+         self.df[['Bedrooms', 'Bathrooms', 'Size']]],
+         axis=1)
+      target = self.df['Price']
 
-   print('SCORE:', lmodel.score(ind_vars, target))
-   print(lmodel.predict(record))
+      self.lmodel = linear_model.LinearRegression()
+      self.lmodel.fit(ind_vars, target)
+
+      print('SCORE:', self.lmodel.score(ind_vars, target))
+
+   def predict(self, record):
+      print(self.lmodel.predict(record))
 
 if __name__ == '__main__':
+   model = HousingModel()
    test = pd.DataFrame([[0, 1, 3, 2, 1975]],
       columns=['Location', 'Status', 'Bedrooms', 'Bathrooms', 'Size'])
-   predict_record(test)
+   model.predict(test)
