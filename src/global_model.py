@@ -28,4 +28,7 @@ class GlobalModel:
          print("No applicable model found")
          return
 
-      print(model.predict(record))
+      estimate = model.predict(record)
+
+      print(estimate)
+      return estimate[0]
