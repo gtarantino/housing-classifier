@@ -2,7 +2,7 @@
 #              the price of a unit given a number of features.
 #
 # Model ID: 'KINGS_COUNTY'
-# Model Features
+# Model Features:
 # 'bedrooms'    - number of bedrooms
 # 'bathrooms'   - number of bathrooms
 # 'sqft_living' - square footage of the living space
@@ -16,14 +16,16 @@ import pandas as pd
 from sklearn import linear_model
 
 class KingsCountyModel:
+   features = ['bedrooms', 'bathrooms', 'sqft_living',
+         'sqft_lot', 'zipcode', 'grade', 'condition', 'yr_built']
+
    def __init__(self):
       self.instantiate_model()
 
    def instantiate_model(self):
       self.df = pd.read_csv('../datasets/kc_house_data.csv')
 
-      ind_vars = self.df[['bedrooms', 'bathrooms', 'sqft_living',
-         'sqft_lot', 'zipcode', 'grade', 'condition', 'yr_built']]
+      ind_vars = self.df[KingsCountyModel.features]
       target = self.df['price']
 
       # Split the data into training and testing sets
@@ -44,8 +46,7 @@ class KingsCountyModel:
          record['bathrooms'], record['sqft_living'], record['sqft_lot'],
          record['zipcode'], record['grade'],
          record['condition'], record['yr_built']]],
-         columns=['bedrooms', 'bathrooms', 'sqft_living',
-         'sqft_lot', 'zipcode', 'grade', 'condition', 'yr_built'])
+         columns=KingsCountyModel.features)
 
       return self.lmodel.predict(df)
 

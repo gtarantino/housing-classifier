@@ -2,7 +2,7 @@
 #              price of a unit given a number of features.
 #
 # Model ID: 'SLO_COUNTY'
-# Model Features
+# Model Features:
 # 'location'  - city/town where the unit is located
 # 'status'    - type of sale ('Short Sale', 'Foreclosure', 'Regular')
 # 'bedrooms'  - number of bedrooms
